@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: tomek1
+    driver-class-name: org.postgresql.Driver
+  #spring.jpa.show-sql: true
+
+#  flyway:
+#    driverClassName: org.postgresql.Driver
+#    user: postgres
+#    password: tomek1
+#    schemas: public
+#    url: jdbc:postgresql://localhost:5432/postgres
+
