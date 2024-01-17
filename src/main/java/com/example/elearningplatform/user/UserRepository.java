@@ -12,5 +12,4 @@ interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     void deleteByLogin(String login);
 
-    boolean existsByLogin(String login);
 }

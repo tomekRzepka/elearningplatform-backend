@@ -46,7 +46,7 @@ public class UserController {
 
     @GetMapping("/login/{login}")
     @ResponseStatus(HttpStatus.OK)
-    public boolean loginUser(@PathVariable String login) {
+    public User loginUser(@PathVariable String login) {
         return userService.userValidation(login);
     }
 

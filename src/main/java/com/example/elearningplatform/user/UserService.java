@@ -19,7 +19,7 @@ public class UserService {
                 .map(entity -> new User(entity.getLogin(),
                         entity.getPassword(),
                         entity.getEmail(),
-                        Role.CUSTOMER))
+                        entity.getRole()))
                 .toList();
     }
 
@@ -57,7 +57,12 @@ public class UserService {
         repository.deleteByLogin(login);
     }
 
-    public boolean userValidation(String login) {
-        return repository.existsByLogin(login);
+    public User userValidation(String login) {
+        return repository.findByLogin(login)
+                .map(entity -> new User(entity.getLogin(),
+                        "????",
+                        entity.getEmail(),
+                        entity.getRole()))
+                .orElseThrow(() -> new ElearningPlatformException("User not found"));
     }
 }
