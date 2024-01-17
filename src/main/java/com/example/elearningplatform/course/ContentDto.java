@@ -1,6 +1,6 @@
 package com.example.elearningplatform.course;
 
-record ContentDto(String description,
-                  String link) {
+public record ContentDto(String description,
+                         String link) {
 
 }

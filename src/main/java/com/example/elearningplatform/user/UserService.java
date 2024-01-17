@@ -22,11 +22,7 @@ public class UserService {
     }
 
     public void addUser(UserDto user) {
-        repository.save(UserEntity.builder()
-                .login(user.login())
-                .password(user.password())
-                .email(user.email()).role(Role.CUSTOMER)
-                .build());
+        repository.save(userMapper.map(user));
     }
 
     public Boolean editUser(UserDto user) {

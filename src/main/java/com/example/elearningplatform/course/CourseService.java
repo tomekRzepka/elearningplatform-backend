@@ -28,6 +28,10 @@ public class CourseService {
 
     }
 
+    public void addCourse(CourseDto course) {
+        courseRepository.save(courseMapper.map(course));
+    }
+
     @Transactional
     public CourseDto addContent(String title, ContentDto content) {
         CourseEntity courseEntity = getCourseEntity(title);
@@ -49,4 +53,6 @@ public class CourseService {
                 .orElseThrow(() -> new CourseNotFoundException("Course not found with title: " + title));
 
     }
+
+
 }
