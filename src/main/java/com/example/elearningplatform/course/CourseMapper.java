@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class CourseMapper {
     private ContentMapper contentMapper;
 
-    Course map(CourseEntity entity) {
-        return new Course(entity.getTitle(), entity.author.getLogin(), entity.getPrice(), contentMapper.map(entity.getContent()));
+    CourseDto map(CourseEntity entity) {
+        return new CourseDto(entity.getTitle(), entity.author.getLogin(), entity.getPrice(), contentMapper.map(entity.getContent()));
     }
 }

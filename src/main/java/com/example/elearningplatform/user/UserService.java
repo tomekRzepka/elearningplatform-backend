@@ -1,6 +1,6 @@
 package com.example.elearningplatform.user;
 
-import com.example.elearningplatform.ElearningPlatformException;
+import com.example.elearningplatform.exception.ElearningPlatformException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +12,16 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository repository;
+    private final UserMapper userMapper;
 
 
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return repository.findAll().stream()
-                .map(entity -> new User(entity.getLogin(),
-                        entity.getPassword(),
-                        entity.getEmail(),
-                        entity.getRole()))
+                .map(userMapper::map)
                 .toList();
     }
 
-    public void addUser(User user) {
+    public void addUser(UserDto user) {
         repository.save(UserEntity.builder()
                 .login(user.login())
                 .password(user.password())
@@ -31,7 +29,7 @@ public class UserService {
                 .build());
     }
 
-    public Boolean editUser(User user) {
+    public Boolean editUser(UserDto user) {
         Optional<UserEntity> entity = repository.findByLogin(user.login());
         if (entity.isPresent()) {
             UserEntity userEntity = entity.get();
@@ -44,12 +42,9 @@ public class UserService {
         return false;
     }
 
-    public User getUser(String login) {
+    public UserDto getUser(String login) {
         return repository.findByLogin(login)
-                .map(entity -> new User(entity.getLogin(),
-                        entity.getPassword(),
-                        entity.getEmail(),
-                        entity.getRole()))
+                .map(userMapper::map)
                 .orElseThrow(() -> new ElearningPlatformException("User not found"));
     }
 
@@ -57,12 +52,9 @@ public class UserService {
         repository.deleteByLogin(login);
     }
 
-    public User userValidation(String login) {
+    public UserDto userValidation(String login) {
         return repository.findByLogin(login)
-                .map(entity -> new User(entity.getLogin(),
-                        "????",
-                        entity.getEmail(),
-                        entity.getRole()))
+                .map(userMapper::mapExcludedPassword)
                 .orElseThrow(() -> new ElearningPlatformException("User not found"));
     }
 }

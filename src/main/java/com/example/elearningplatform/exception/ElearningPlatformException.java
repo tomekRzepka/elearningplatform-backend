@@ -1,4 +1,4 @@
-package com.example.elearningplatform;
+package com.example.elearningplatform.exception;
 
 public class ElearningPlatformException extends RuntimeException {
 

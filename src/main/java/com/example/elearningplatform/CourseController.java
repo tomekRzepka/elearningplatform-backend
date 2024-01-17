@@ -1,6 +1,6 @@
 package com.example.elearningplatform;
 
-import com.example.elearningplatform.course.Course;
+import com.example.elearningplatform.course.CourseDto;
 import com.example.elearningplatform.course.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +19,7 @@ public class CourseController {
     private final CourseService courseService;
 
     @GetMapping
-    public List<Course> getAllCourses() {
+    public List<CourseDto> getAllCourses() {
         return courseService.getAllCourses();
     }
 

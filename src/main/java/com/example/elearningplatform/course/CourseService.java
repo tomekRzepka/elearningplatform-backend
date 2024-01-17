@@ -1,6 +1,7 @@
 package com.example.elearningplatform.course;
 
-import com.example.elearningplatform.ElearningPlatformException;
+import com.example.elearningplatform.exception.CourseNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,17 +12,41 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class CourseService {
-    private CourseRepository courseRepository;
-    private ContentRepository contentRepository;
-    private ContentMapper contentMapper;
-    private CourseMapper courseMapper;
+    private final CourseRepository courseRepository;
+    private final ContentRepository contentRepository;
+    private final ContentMapper contentMapper;
+    private final CourseMapper courseMapper;
 
-    public List<Course> getAllCourses() {
-        try {
-            List<CourseEntity> all = courseRepository.findAll();
-            return all.stream().map(courseMapper::map).toList();
-        } catch (Exception e) {
-            throw new ElearningPlatformException("No course entity", e);
-        }
+    public List<CourseDto> getAllCourses() {
+        return courseRepository.findAll().stream().map(courseMapper::map).toList();
+    }
+
+    public CourseDto getCourse(String title) {
+        CourseEntity course = courseRepository.findByTitle(title)
+                .orElseThrow(() -> new CourseNotFoundException("Course not found with title: " + title));
+        return courseMapper.map(course);
+
+    }
+
+    @Transactional
+    public CourseDto addContent(String title, ContentDto content) {
+        CourseEntity courseEntity = getCourseEntity(title);
+        ContentEntity contentEntity = contentMapper.map(content);
+        courseEntity.setContent(contentEntity);
+        return courseMapper.map(courseRepository.save(courseEntity));
+    }
+
+    public void removeCourse(String title) {
+        courseRepository.deleteById(getCourseEntity(title).getId());
+    }
+
+    public void clearContentForCourse(String title) {
+        contentRepository.deleteById(getCourseEntity(title).getContent().getId());
+    }
+
+    private CourseEntity getCourseEntity(String title) {
+        return courseRepository.findByTitle(title)
+                .orElseThrow(() -> new CourseNotFoundException("Course not found with title: " + title));
+
     }
 }

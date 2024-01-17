@@ -1,6 +1,6 @@
 package com.example.elearningplatform;
 
-import com.example.elearningplatform.user.User;
+import com.example.elearningplatform.user.UserDto;
 import com.example.elearningplatform.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,23 +18,23 @@ public class UserController {
 
 
     @GetMapping("/all")
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/users/{login}")
-    public User getUser(@PathVariable String login) {
+    public UserDto getUser(@PathVariable String login) {
         return userService.getUser(login);
     }
 
     @PostMapping("/add")
-    public void addCustomer(@RequestBody User user) {
+    public void addCustomer(@RequestBody UserDto user) {
         userService.addUser(user);
     }
 
     @PutMapping("/edit/{login}")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean editUser(@RequestBody User user) {
+    public Boolean editUser(@RequestBody UserDto user) {
         return userService.editUser(user);
     }
 
@@ -46,7 +46,7 @@ public class UserController {
 
     @GetMapping("/login/{login}")
     @ResponseStatus(HttpStatus.OK)
-    public User loginUser(@PathVariable String login) {
+    public UserDto loginUser(@PathVariable String login) {
         return userService.userValidation(login);
     }
 

@@ -5,9 +5,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ContentMapper {
 
-    Content map(ContentEntity entity) {
+    ContentDto map(ContentEntity entity) {
 
-        return new Content(entity.getDescription(), entity.getLink());
+        return new ContentDto(entity.getDescription(), entity.getLink());
     }
 
+    ContentEntity map(ContentDto dto) {
+
+        return ContentEntity.builder().description(dto.description()).link(dto.link()).build();
+    }
 }
