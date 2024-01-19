@@ -32,8 +32,8 @@ public class CourseService {
 
     }
 
-    public void addCourse(String login, CourseDto course) {
-        UserEntity author = userService.getUserEntity(login);
+    public void addCourse(CourseDto course) {
+        UserEntity author = userService.getUserEntity(course.author());
         courseRepository.save(courseMapper.map(course,author));
     }
 
