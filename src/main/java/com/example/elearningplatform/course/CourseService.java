@@ -1,6 +1,9 @@
 package com.example.elearningplatform.course;
 
 import com.example.elearningplatform.exception.CourseNotFoundException;
+import com.example.elearningplatform.user.UserDto;
+import com.example.elearningplatform.user.UserEntity;
+import com.example.elearningplatform.user.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,7 @@ import java.util.List;
 public class CourseService {
     private final CourseRepository courseRepository;
     private final ContentRepository contentRepository;
+    private final UserService userService;
     private final ContentMapper contentMapper;
     private final CourseMapper courseMapper;
 
@@ -28,8 +32,9 @@ public class CourseService {
 
     }
 
-    public void addCourse(CourseDto course) {
-        courseRepository.save(courseMapper.map(course));
+    public void addCourse(String login, CourseDto course) {
+        UserEntity author = userService.getUserEntity(login);
+        courseRepository.save(courseMapper.map(course,author));
     }
 
     @Transactional
