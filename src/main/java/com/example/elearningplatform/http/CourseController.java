@@ -1,4 +1,4 @@
-package com.example.elearningplatform;
+package com.example.elearningplatform.http;
 
 import com.example.elearningplatform.course.ContentDto;
 import com.example.elearningplatform.course.CourseDto;
