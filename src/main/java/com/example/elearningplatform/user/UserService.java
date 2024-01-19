@@ -51,7 +51,12 @@ public class UserService {
     public UserDto userValidation(UserDto user) {
         return repository.findByLogin(user.login())
                 .filter(entity -> entity.getPassword().equals(user.password()))
-                .map(userMapper::mapExcludedPassword)
+                .map(userMapper::mapEncodePassword)
+                .orElseThrow(() -> new ElearningPlatformException("User not found"));
+    }
+
+    public UserEntity getUserEntity(String login) {
+        return repository.findByLogin(login)
                 .orElseThrow(() -> new ElearningPlatformException("User not found"));
     }
 }
