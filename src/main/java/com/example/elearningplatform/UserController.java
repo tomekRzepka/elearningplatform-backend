@@ -44,10 +44,10 @@ public class UserController {
         userService.removeUser(login);
     }
 
-    @GetMapping("/login/{login}")
+    @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public UserDto loginUser(@PathVariable String login) {
-        return userService.userValidation(login);
+    public UserDto loginUser(@RequestBody UserDto user) {
+        return userService.userValidation(user);
     }
 
 }

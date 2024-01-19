@@ -29,9 +29,9 @@ public class UserService {
         Optional<UserEntity> entity = repository.findByLogin(user.login());
         if (entity.isPresent()) {
             UserEntity userEntity = entity.get();
-            userEntity.setPassword(user.password());
-            userEntity.setEmail(user.email());
-            userEntity.setRole(user.role());
+            userEntity.setPassword(user.password() != null ? user.password() : userEntity.getPassword());
+            userEntity.setEmail(user.email() != null ? user.email() : userEntity.getEmail());
+            userEntity.setRole(user.role() != null ? user.role() : userEntity.getRole());
             repository.save(userEntity);
             return true;
         }
@@ -48,8 +48,9 @@ public class UserService {
         repository.deleteByLogin(login);
     }
 
-    public UserDto userValidation(String login) {
-        return repository.findByLogin(login)
+    public UserDto userValidation(UserDto user) {
+        return repository.findByLogin(user.login())
+                .filter(entity -> entity.getPassword().equals(user.password()))
                 .map(userMapper::mapExcludedPassword)
                 .orElseThrow(() -> new ElearningPlatformException("User not found"));
     }
