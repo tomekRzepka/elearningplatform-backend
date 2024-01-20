@@ -1,4 +1,4 @@
-package com.example.elearningplatform;
+package com.example.elearningplatform.http;
 
 import com.example.elearningplatform.user.UserDto;
 import com.example.elearningplatform.user.UserService;
@@ -15,6 +15,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
 
 
     @GetMapping("/all")

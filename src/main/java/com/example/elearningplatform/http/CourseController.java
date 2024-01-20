@@ -1,5 +1,7 @@
 package com.example.elearningplatform.http;
 
+import com.example.elearningplatform.course.BoughtCourseService;
+import com.example.elearningplatform.course.BuyCourseDto;
 import com.example.elearningplatform.course.CourseDto;
 import com.example.elearningplatform.course.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.List;
 public class CourseController {
 
     private final CourseService courseService;
+    private final BoughtCourseService boughtCourseService;
 
     @GetMapping
     public List<CourseDto> getAllCourses() {
@@ -34,5 +37,15 @@ public class CourseController {
     public void removeCourse(@PathVariable String title) {
         courseService.removeCourse(title);
     }
+
+    @GetMapping("/{login}")
+    public List<CourseDto> getAllCoursesForCustomer(@PathVariable String login) {
+        return boughtCourseService.getAllCoursesForUser(login);
+    }
+    @PostMapping("/buy")
+    public void buyCourse(@RequestBody BuyCourseDto buyCourse) {
+        boughtCourseService.buyCourse(buyCourse);
+    }
+
 
 }

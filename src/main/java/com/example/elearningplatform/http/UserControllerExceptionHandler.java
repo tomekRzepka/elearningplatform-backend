@@ -1,4 +1,4 @@
-package com.example.elearningplatform;
+package com.example.elearningplatform.http;
 
 import com.example.elearningplatform.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;

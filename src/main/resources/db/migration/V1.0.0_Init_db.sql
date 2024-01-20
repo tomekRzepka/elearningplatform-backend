@@ -16,3 +16,8 @@ CREATE TABLE course
     description VARCHAR(255),
     link        VARCHAR(255)
 );
+CREATE TABLE bought_course (
+                               id SERIAL PRIMARY KEY,
+                               user_id BIGINT REFERENCES users(id),
+                               course_id BIGINT REFERENCES course(id)
+);

@@ -1,4 +1,4 @@
-package com.example.elearningplatform;
+package com.example.elearningplatform.http;
 
 import com.example.elearningplatform.exception.CourseNotFoundException;
 import org.springframework.http.HttpStatus;
