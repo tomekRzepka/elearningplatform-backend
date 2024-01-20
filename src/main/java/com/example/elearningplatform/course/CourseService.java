@@ -16,9 +16,7 @@ import java.util.List;
 @Slf4j
 public class CourseService {
     private final CourseRepository courseRepository;
-    private final ContentRepository contentRepository;
     private final UserService userService;
-    private final ContentMapper contentMapper;
     private final CourseMapper courseMapper;
 
     public List<CourseDto> getAllCourses() {
@@ -37,20 +35,8 @@ public class CourseService {
         courseRepository.save(courseMapper.map(course,author));
     }
 
-    @Transactional
-    public CourseDto addContent(String title, ContentDto content) {
-        CourseEntity courseEntity = getCourseEntity(title);
-        ContentEntity contentEntity = contentMapper.map(content);
-        courseEntity.setContent(contentEntity);
-        return courseMapper.map(courseRepository.save(courseEntity));
-    }
-
     public void removeCourse(String title) {
         courseRepository.deleteById(getCourseEntity(title).getId());
-    }
-
-    public void clearContentForCourse(String title) {
-        contentRepository.deleteById(getCourseEntity(title).getContent().getId());
     }
 
     private CourseEntity getCourseEntity(String title) {

@@ -26,13 +26,14 @@ class CourseEntity {
     @OneToOne
     UserEntity author;
     BigDecimal price;
-    @OneToOne
-    ContentEntity content;
+    String description;
+    String link;
 
     public CourseEntity() {
         this.title = "testTitle";
         this.author = new UserEntity();
         this.price = BigDecimal.ZERO;
-        this.content = new ContentEntity();
+        this.description = "testDescription";
+        this.link = "testLink";
     }
 }

@@ -1,6 +1,5 @@
 package com.example.elearningplatform.http;
 
-import com.example.elearningplatform.course.ContentDto;
 import com.example.elearningplatform.course.CourseDto;
 import com.example.elearningplatform.course.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -31,19 +30,9 @@ public class CourseController {
         courseService.addCourse(course);
     }
 
-    @PutMapping("/{title}/addContent")
-    public CourseDto addCourse(@PathVariable String title, @RequestBody ContentDto course) {
-        return courseService.addContent(title, course);
-    }
-
     @DeleteMapping("/{title}/remove")
     public void removeCourse(@PathVariable String title) {
         courseService.removeCourse(title);
-    }
-
-    @DeleteMapping("/{title}/clearContent")
-    public void clearContent(@PathVariable String title) {
-        courseService.clearContentForCourse(title);
     }
 
 }

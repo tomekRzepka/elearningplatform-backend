@@ -8,14 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CourseMapper {
-    private ContentMapper contentMapper;
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     CourseDto map(CourseEntity entity) {
-        return new CourseDto(entity.getTitle(), entity.getAuthor().getLogin(), entity.getPrice(), contentMapper.map(entity.getContent()));
+        return new CourseDto(entity.getTitle(), entity.getAuthor().getLogin(), entity.getPrice(), entity.getDescription(), entity.getLink());
     }
 
     CourseEntity map(CourseDto dto, UserEntity author) {
-        return CourseEntity.builder().title(dto.title()).author(author).price(dto.price()).content(contentMapper.map(dto.content())).build();
+        return CourseEntity.builder().title(dto.title()).author(author).price(dto.price()).description(dto.description()).link(dto.link()).build();
     }
 }
