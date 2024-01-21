@@ -6,7 +6,7 @@ import com.example.elearningplatform.course.CourseDto;
 import com.example.elearningplatform.course.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
 @RestController
@@ -38,9 +38,10 @@ public class CourseController {
         courseService.removeCourse(title);
     }
 
-    @GetMapping("/{login}")
+    @GetMapping("/bought/{login}")
     public List<CourseDto> getAllCoursesForCustomer(@PathVariable String login) {
-        return boughtCourseService.getAllCoursesForUser(login);
+        List<CourseDto> allCoursesForUser = boughtCourseService.getAllCoursesForUser(login);
+        return allCoursesForUser;
     }
     @PostMapping("/buy")
     public void buyCourse(@RequestBody BuyCourseDto buyCourse) {

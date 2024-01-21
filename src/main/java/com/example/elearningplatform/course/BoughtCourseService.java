@@ -28,7 +28,8 @@ public class BoughtCourseService {
                 .map(Optional::get)
                 .toList();
 
-        return courses.stream().map(courseMapper::map).toList();
+        List<CourseDto> list = courses.stream().map(courseMapper::map).toList();
+        return list;
     }
 
     public void buyCourse(BuyCourseDto buyCourseDto) {
